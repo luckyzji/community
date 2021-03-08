@@ -2,6 +2,7 @@ package com.luckyzj.community.dao;
 
 import com.luckyzj.community.CommunityApplication;
 import com.luckyzj.community.entity.DiscussPost;
+import com.luckyzj.community.entity.LoginTicket;
 import com.luckyzj.community.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,9 @@ public class MapperTest {
 
     @Autowired
     private DiscussPostMapper discussPostMapper;
+
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     @Test
     public void testSelect(){
@@ -79,6 +83,26 @@ public class MapperTest {
         System.out.println(rows);
     }
 
+    @Test
+    public void testLoginTicketInsert(){
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setTicket("123456");
+        loginTicket.setUserId(151);
+        loginTicket.setStatus(0);
+        loginTicket.setExpired(new Date());
+        loginTicketMapper.insertLoginTicket(loginTicket);
+    }
+
+    @Test
+    public void testLoginTicketSelect(){
+        LoginTicket loginTicket=loginTicketMapper.selectLoginTicket("123456");
+        System.out.println(loginTicket);
+    }
+
+    @Test
+    public void testLoginTicketUpdate(){
+        loginTicketMapper.updateStatus("123456",1);
+    }
 
 
 }

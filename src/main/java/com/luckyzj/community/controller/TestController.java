@@ -1,10 +1,13 @@
 package com.luckyzj.community.controller;
 
+import com.luckyzj.community.utils.CommunityUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.Map;
  * @Date 2021-01-28
  */
 @Controller
+@RequestMapping("/test")
 public class TestController {
 
     @RequestMapping(path = "/student",method = RequestMethod.POST)
@@ -79,5 +83,28 @@ public class TestController {
         list.add(map2);
         return list;
     }
+
+    @RequestMapping("/cookie/set")
+    @ResponseBody
+    public String setCookie(HttpServletResponse response){
+        //创建Cookie
+        Cookie cookie = new Cookie("code", CommunityUtil.generateUUID());
+        //设置Cookie生效范围
+        cookie.setPath("/community/test");
+        //设置cookie生存时间
+        cookie.setMaxAge(60*10);
+        //发送Cookie
+        response.addCookie(cookie);
+        return "set Cookie";
+    }
+    @RequestMapping("/cookie/get")
+    @ResponseBody
+    public String getCookie(@CookieValue("code") String code){
+        System.out.println(code);
+        return "get Cookie";
+    }
+
+
+
 
 }
