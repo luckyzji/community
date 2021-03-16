@@ -3,6 +3,7 @@ package com.luckyzj.community.dao;
 import com.luckyzj.community.CommunityApplication;
 import com.luckyzj.community.entity.DiscussPost;
 import com.luckyzj.community.entity.LoginTicket;
+import com.luckyzj.community.entity.Message;
 import com.luckyzj.community.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +31,9 @@ public class MapperTest {
 
     @Autowired
     private LoginTicketMapper loginTicketMapper;
+
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Test
     public void testSelect(){
@@ -105,4 +109,25 @@ public class MapperTest {
     }
 
 
+    @Test
+    public void testSelectLetters(){
+        List<Message> list=messageMapper.selectConversations(111,0,20);
+        for(Message message : list){
+            System.out.println(message);
+        }
+
+        int count = messageMapper.selectConversationCount(111);
+        System.out.println(count);
+
+        list=messageMapper.selectLetters("111_112",0,10);
+        for(Message message : list){
+            System.out.println(message);
+        }
+
+        count = messageMapper.selectLetterCount("111_112");
+        System.out.println(count);
+
+        count = messageMapper.selectLetterUnreadCount(131,"111_131");
+        System.out.println(count);
+    }
 }

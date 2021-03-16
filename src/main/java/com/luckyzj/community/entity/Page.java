@@ -1,8 +1,6 @@
 package com.luckyzj.community.entity;
 
 /**
- * @Author ZJ
- * @Date 2021-02-21
  * 封装分页相关信息
  */
 public class Page {
