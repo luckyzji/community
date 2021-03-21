@@ -15,10 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @Author ZJ
- * @Date 2021-01-31
- */
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = CommunityApplication.class)

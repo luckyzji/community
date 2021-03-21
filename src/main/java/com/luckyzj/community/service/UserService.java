@@ -1,6 +1,5 @@
 package com.luckyzj.community.service;
 
-import com.luckyzj.community.dao.LoginTicketMapper;
 import com.luckyzj.community.dao.UserMapper;
 import com.luckyzj.community.entity.LoginTicket;
 import com.luckyzj.community.entity.User;

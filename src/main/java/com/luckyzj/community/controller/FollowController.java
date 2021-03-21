@@ -1,7 +1,9 @@
 package com.luckyzj.community.controller;
 
+import com.luckyzj.community.entity.Event;
 import com.luckyzj.community.entity.Page;
 import com.luckyzj.community.entity.User;
+import com.luckyzj.community.event.EventProducer;
 import com.luckyzj.community.service.FollowService;
 import com.luckyzj.community.service.UserService;
 import com.luckyzj.community.utils.CommunityConstant;
@@ -31,11 +33,23 @@ public class FollowController implements CommunityConstant{
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @RequestMapping(path = "/follow",method = RequestMethod.POST)
     @ResponseBody
     public String follow(int entityType,int entityId){
         User user = hostHolder.getUser();
         followService.follow(user.getId(),entityType,entityId);
+        //触发关注事件
+        Event event = new Event()
+                .setTopic(TOPIC_FOLLOW)
+                .setUserId(user.getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+
+        eventProducer.fireEvent(event);
 
         return CommunityUtil.getJSONString(0,"已关注");
     }
